@@ -8,7 +8,7 @@ written solely based on information gained by sniffing the USB
 bus to observe how the National
 Instruments driver initializes the adapter under Windows.
 It is entirely possible that initializing your adapter with
-bad firmware could permanently damage or disable your adapter
+bad firmware could permanently damage or disable your adapter.
 
 ## Motivation
 If your GPIB-USB-HS+ powers on with a USB product id of 0x761e then
@@ -21,7 +21,7 @@ your GPIB-USB-HS+ by plugging it into a Windows computer which has the
 National Instruments GPIB driver software installed.
 
 ## Requirements
-* libusb
+* libusb-1.0
 * Stage 1 and stage 2 firmware images, available from the
 [Linux-GPIB firmware repository](https://github.com/fmhess/linux_gpib_firmware).
 
@@ -31,4 +31,6 @@ National Instruments GPIB driver software installed.
 
 ## Usage
 	hsplus_load STAGE1_IMAGE STAGE2_IMAGE
- 
+
+## Author
+Frank Mori Hess fmh6jj@gmail.com
