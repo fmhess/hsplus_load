@@ -1,9 +1,6 @@
 # hsplus_load
 hsplus_load is a utility for initializing NI GPIB-USB-HS+ adapters under Linux.
 
-## Status
-Incomplete, still in development.
-
 ## Disclaimer
 This program is EXPERIMENTAL and is provided WITHOUT WARRANTY.  
 USE AT YOUR OWN RISK.  It was
@@ -12,6 +9,9 @@ bus to observe how the National
 Instruments driver initializes the adapter under Windows.
 It is entirely possible that initializing your adapter with
 bad firmware could permanently damage or disable your adapter.
+
+## Status
+Might work, but untested.
 
 ## Motivation
 If your GPIB-USB-HS+ powers on with a USB product id of 0x761e then
