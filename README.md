@@ -30,6 +30,7 @@ National Instruments GPIB driver software installed.
 	make
 
 ## Usage
+As root:
 	hsplus_load STAGE1_IMAGE STAGE2_IMAGE
 
 ## Author
