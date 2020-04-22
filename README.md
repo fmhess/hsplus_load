@@ -1,6 +1,9 @@
 # hsplus_load
 hsplus_load is a utility for initializing NI GPIB-USB-HS+ adapters under Linux.
 
+## Status
+Incomplete, still in development.
+
 ## Disclaimer
 This program is EXPERIMENTAL and is provided WITHOUT WARRANTY.  
 USE AT YOUR OWN RISK.  It was
