@@ -11,7 +11,12 @@ It is entirely possible that initializing your adapter with
 bad firmware could permanently damage or disable your adapter.
 
 ## Status
-Might work, but untested.
+Might work, but untested.  If you try this program, tell the
+author how it went.  If it fails, send the full output from
+the failed program run (it generates a lot of debug output on stderr).
+
+The latest version of this program may be found
+at <https://github.com/fmhess/hsplus_load> .
 
 ## Motivation
 If your GPIB-USB-HS+ powers on with a USB product id of 0x761e then
@@ -26,7 +31,7 @@ National Instruments GPIB driver software installed.
 ## Requirements
 * libusb-1.0
 * Stage 1 and stage 2 firmware images, available from the
-[Linux-GPIB firmware repository](https://github.com/fmhess/linux_gpib_firmware).
+[Linux-GPIB firmware repository](https://github.com/fmhess/linux_gpib_firmware) .
 
 
 ## Build
