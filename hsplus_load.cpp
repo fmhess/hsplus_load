@@ -12,6 +12,7 @@ static const uint16_t ni_gpib_usb_hs_plus_product_id = 0x7618;
 static const unsigned char uninitialized_ni_gpib_usb_hs_plus_bulk_in_endpoint = 0x81;
 static const unsigned char uninitialized_ni_gpib_usb_hs_plus_bulk_out_endpoint = 0x03;
 static const unsigned int timeout = 3000;
+static const unsigned int long_timeout = 30000;
 
 
 std::shared_ptr<libusb_device_handle> find_ni_gpib_usb_hs_plus()
@@ -171,7 +172,7 @@ void load_first_stage(libusb_device_handle *dev, const char *stage1_image)
 	}
 }
 
-void bulk_status_check(libusb_device_handle *dev, const std::vector<unsigned char> &expected)
+void bulk_status_check(libusb_device_handle *dev, const std::vector<unsigned char> &expected, const unsigned int bulk_timeout)
 {
 	// I guess this is some kind of status check
 	int transferred;
@@ -182,7 +183,7 @@ void bulk_status_check(libusb_device_handle *dev, const std::vector<unsigned cha
 		&data.at(0), 
 		data.size(), 
 		&transferred, 
-		timeout);
+		bulk_timeout);
 	if (retval < 0)
 	{
 		throw std::runtime_error("Bulk read #1 failed.");
@@ -218,7 +219,7 @@ void load_second_stage(libusb_device_handle *dev, const char *stage2_image)
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
-	bulk_status_check(dev, expected_data);
+	bulk_status_check(dev, expected_data, timeout);
 	
 	std::ifstream stage2_ifstream;
 	stage2_ifstream.open(stage2_image, std::ifstream::binary | std::ifstream::in);
@@ -250,7 +251,9 @@ void load_second_stage(libusb_device_handle *dev, const char *stage2_image)
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
-	bulk_status_check(dev, expected_data);
+	// Attention: The device needs ~8.5 seconds to respond, here
+	// Therefore we set a longer timeout
+	bulk_status_check(dev, expected_data, long_timeout);
 	
 	// send stage 2 image data
 	static const unsigned max_chunk_length = 0x8000;
@@ -290,7 +293,7 @@ void load_second_stage(libusb_device_handle *dev, const char *stage2_image)
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
 	expected_data.push_back(0x0);
-	bulk_status_check(dev, expected_data);
+	bulk_status_check(dev, expected_data, timeout);
 	
 	// after this, the adapter should re-enumerate with idProduct 0x7618 and we are done
 	retval = libusb_control_transfer (dev, 
